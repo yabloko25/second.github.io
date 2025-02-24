@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дневник</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, textarea, button {
+            margin: 5px;
+            padding: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        textarea {
+            height: 80px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #f4f4f4;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Дневник</h1>
+
+    <form id="noteForm">
+        <input type="text" id="title" placeholder="Заголовок" required>
+        <textarea id="description" placeholder="Описание" required></textarea>
+        <button type="submit">Добавить</button>
+    </form>
+
+    <h2>Записи</h2>
+    <ul id="notesList"></ul>
+
+    <script>
+        const notes = [];
+
+        document.getElementById("noteForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+
+            const note = { title, description };
+            notes.push(note);
+
+            updateNotesList();
+            
+            this.reset();
+        });
+
+        function updateNotesList() {
+            const list = document.getElementById("notesList");
+            list.innerHTML = "";
+
+            notes.forEach(note => {
+                const li = document.createElement("li");
+                li.innerHTML = `<strong>${note.title}</strong><p>${note.description}</p>`;
+                list.appendChild(li);
+            });
+        }
+    </script>
+
+</body>
+</html>
